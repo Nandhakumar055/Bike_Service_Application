@@ -24,7 +24,7 @@ const Signup = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const url = "http://localhost:5002/api/users";
+			const url = "https://bike-service-application-backend.onrender.com";
 			const response = await fetch(url, {
 				method: 'POST',
 				headers: {
