@@ -32,8 +32,6 @@ const Home = () => {
 
 	const [serviceData] = useState([...serviceDataList])
 
-	console.log(serviceData)
-
 	
 	return (
 		<div className='home-main-container'>

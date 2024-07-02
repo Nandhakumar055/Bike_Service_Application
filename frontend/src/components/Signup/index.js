@@ -23,9 +23,13 @@ const Signup = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+
 		try {
-			const url = "https://bike-service-application-backend.onrender.com/api/users";
-			// const url = "http://localhost:5002/api/users"
+			// const url = "https://bike-service-application-backend.onrender.com/api/users";
+
+			const url = "http://localhost:5002/api/users"
+
+			setError('Loading...')
 			
 			const response = await fetch(url, {
 				method: 'POST',
@@ -39,7 +43,7 @@ const Signup = () => {
 
 			if (response.ok) {
 				navigate("/login");
-				console.log(res.message);
+				setError(res.message);
 			} else {
 				setError(res.message);
 			}
@@ -47,6 +51,10 @@ const Signup = () => {
 			setError("An unexpected error occurred");
 		}
 	};
+
+	const responseResultStyle = error === 'Loading...' || error === 'SignUp Successfully' ?
+    'success-msg': 'error-msg'
+
 
 	return (
 		<div className='signup-container'>
@@ -95,7 +103,7 @@ const Signup = () => {
                         {showPass ? <FaEye size={20} onClick={handleToggle} color="white"/> : <FaEyeSlash size={20} onClick={handleToggle} color="white"/>}
                     </div>
 				</div>
-				{error && <div className='error-msg'>{error}</div>}
+				{error && <div className={responseResultStyle}>{error}</div>}
 				<button type="submit" className='signup-button'>
 					Sign Up
 				</button>

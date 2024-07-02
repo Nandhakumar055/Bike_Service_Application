@@ -2,13 +2,12 @@ import { useState } from "react"
 import { GiTireIronCross } from "react-icons/gi";
 import { HiMiniBars3 } from "react-icons/hi2";
 
-
 import './index.css'
 
 const Header = () => {
     const [toggleNav, setToggleNav] = useState(false)
-
-    const handleToggleNav = () => {
+    
+	const handleToggleNav = () => {
 		setToggleNav(!toggleNav)
 	}
 
@@ -43,7 +42,7 @@ const Header = () => {
 				<div className='sub-nav'>
 					<a href='/#HomeSection' className='nav-item' onClick={handleToggleNav}>Home</a>
 					<a href='/#ServiceSection' className='nav-item' onClick={handleToggleNav}>Service</a>
-					<a href='/#WorkShopSection' className='nav-item' onClick={handleToggleNav}>Workshop</a>
+					<a href='#WorkShopSection' className='nav-item' onClick={handleToggleNav}>Workshop</a>
 					<a href='/#ContactUsSection' className='nav-item' onClick={handleToggleNav}>Contact Us</a>
 				</div>
 			</div>

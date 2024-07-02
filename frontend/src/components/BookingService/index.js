@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './index.css'
 import Header from '../Header'
+import yourBookigContext from '../../context/yourBookigContext'
 
 const serviceDataList = [
 	{id: 1, name: "General Service", serviceCheckBox : false, imageUrl: "https://promechanic.co.in/wp-content/uploads/2023/02/settings.png"},
@@ -28,6 +29,8 @@ const BookingService = () => {
         vehicleNumber: '',
         userSelectedServices : []
     })
+
+    const [resultStaus, setResultStatus] = useState('')
 
     const handleOnChangeInput = (event) => {
         const {name, value} = event.target
@@ -59,20 +62,38 @@ const BookingService = () => {
 
     };
     
-    const handleBookService = event => {
-        event.preventDefault()
-        console.log(userData)
-    }
+    const renderSubmitBooking = () =>(
+        <yourBookigContext.Consumer>
+            {value => {        
+                const {addBookingItem} = value
 
-    return(
-        <div className='service-booking-section-container'>
-            <Header />
-            <div className='service-booking-section-main-container'>
-                <div className='service-booking-main-container'>
-                <h1>Get Our Services</h1>
-                <p>Simply fill out an online request form and what you need, and we'll offer support</p>
-                <form className='service-booking-container' onSubmit={handleBookService}>
-                    <div className='service-form-main-container'>
+                const handleBookService = event => {
+                    event.preventDefault()
+
+                    if (userData.userSelectedServices.length > 0){
+                        setResultStatus(true)
+                        addBookingItem(userData)
+                        setUserdata({
+                            name : '',
+                            email : '',
+                            phoneNumber: '',
+                            date : '',
+                            vehicleNumber: '',
+                            userSelectedServices : []
+                        })
+
+
+                        
+                        window.location = "/";
+                    }    
+                    else{
+                        setResultStatus(false)
+                    }
+                }
+
+                return(
+                    <form className='service-booking-container' onSubmit={handleBookService}>
+                        <div className='service-form-main-container'>
                         <div className='service-form-container'>
                             <div className='input-containers'>
                                 <label htmlFor='Name'>Name</label>
@@ -89,9 +110,9 @@ const BookingService = () => {
                             <div className='input-containers'>
                                 <label htmlFor='Email'>Email</label>
                                 <input 
-                                    type='text' 
+                                    type='email' 
                                     placeholder='Type your email'
-                                    id='Name' 
+                                    id='Email' 
                                     name='email' 
                                     value={userData.email} 
                                     onChange={handleOnChangeInput}
@@ -135,9 +156,9 @@ const BookingService = () => {
                                 />
                             </div>    
                         </div>
-                    </div>
+                        </div>
                     
-                    <div className='choose-your-service-container'>
+                        <div className='choose-your-service-container'>
                         <h4>Kindly select the services you require</h4>
                         <ul className='check-item-main-container'>
                             {serviceData.map(eachService => (
@@ -155,15 +176,36 @@ const BookingService = () => {
                                 </li>
                             ))}
                         </ul>
-                    </div>
-                    <div className='button-con'>
-                        <button type='submit'>Book Service</button>
-                    </div>
-                </form>
+                        </div>
+                        <div className='err-con'>
+                            {resultStaus === true && <h4 className='booking-success-msg'>Booking Successfully</h4>}
+                            {resultStaus === false && <h4 className='booking-err-msg'>*Please choose your services</h4>}
+                        </div>
+                        <div className='button-con'>
+                            <button type='submit'>Book Service</button>
+                        </div>
+                    </form>
+                )
+            }}
+        </yourBookigContext.Consumer>
+
+    )
+
+
+
+    return(
+        <div className='service-booking-section-container'>
+            <Header />
+            <div className='service-booking-section-main-container'>
+                <div className='service-booking-main-container'>
+                <h1>Get Our Services</h1>
+                <p>Simply fill out an online request form and what you need, and we'll offer support</p>
+                {renderSubmitBooking()}
                 </div>
             </div>
         </div>
     )
+        
 }
     
 

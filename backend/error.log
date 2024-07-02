@@ -1,0 +1,2 @@
+{"level":"error","message":"Internal Server Error user.generateAuthToken is not a function","stack":"TypeError: user.generateAuthToken is not a function\n    at /home/nandha/Documents/Bike Service App/backend/routes/auth.js:42:22","timestamp":"2024-07-02T13:32:11.344Z"}
+{"level":"error","message":"Internal Server Error user.generateAuthToken is not a function","stack":"TypeError: user.generateAuthToken is not a function\n    at /home/nandha/Documents/Bike Service App/backend/routes/auth.js:42:22","timestamp":"2024-07-02T13:32:23.013Z"}

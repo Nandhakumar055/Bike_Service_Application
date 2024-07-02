@@ -20,9 +20,11 @@ const Login = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const url = "https://bike-service-application-backend.onrender.com/api/auth";
+			// const url = "https://bike-service-application-backend.onrender.com/api/auth";
             
-            // const url = "http://localhost:5002/api/auth"
+            const url = "http://localhost:5002/api/auth"
+
+            setError('Loading...')
 
 			const response = await fetch(url, {
 				method: 'POST',
@@ -35,6 +37,7 @@ const Login = () => {
 			const res = await response.json();
 
 			if (response.ok) {
+                setError(res.message);
 				localStorage.setItem("token", res.data);
                 window.location = "/";
 			} else {
@@ -44,6 +47,9 @@ const Login = () => {
 			setError("An unexpected error occurred");
 		}
 	};
+
+    const responseResultStyle = error === 'Loading...' || error === 'Logged in Successfully' ?
+    'success-msg': 'error-msg'
 
 	return (
 		<div className='login-container'>
@@ -79,7 +85,7 @@ const Login = () => {
                         {showPass ? <FaEye size={20} onClick={handleToggle} color="white"/> : <FaEyeSlash size={20} onClick={handleToggle} color="white"/>}
                     </div>
                 </div>
-                    {error && <div className='error-msg'>{error}</div>}
+                    {error && <div className={responseResultStyle} >{error}</div>}
                 <button type="submit" className='login-btn'>
                     Login
                 </button>

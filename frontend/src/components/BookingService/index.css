@@ -190,6 +190,39 @@
     width: 100%;
     margin: 20px;
 }
+
+.err-con{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.booking-success-msg{
+    color: rgb(125, 209, 0);
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom:5px;
+    margin-top: 25px;
+    text-align: center;
+    padding: 10px;
+    border-bottom: solid 2px rgb(125, 209, 0);
+    border-radius: 10px;
+}
+
+.booking-err-msg {
+    color: red;
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom:5px;
+    margin-top: 25px;
+    text-align: center;
+    padding: 10px;
+    border-bottom: solid 2px red;
+    border-radius: 10px;
+}
+
 .button-con button{
     border: none;
     padding: 10px 30px;
