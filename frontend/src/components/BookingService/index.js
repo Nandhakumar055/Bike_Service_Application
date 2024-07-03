@@ -110,7 +110,7 @@ const BookingService = () => {
                             userSelectedServices : []
                         })
                         
-                        window.location.reload();
+                        window.location = "/";
                     }    
                     else{
                         setResultStatus(false)
