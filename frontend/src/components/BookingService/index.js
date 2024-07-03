@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './index.css'
 import Header from '../Header'
 import yourBookigContext from '../../context/yourBookigContext'
+import emailjs from '@emailjs/browser';
 
 const serviceDataList = [
 	{id: 1, name: "General Service", serviceCheckBox : false, imageUrl: "https://promechanic.co.in/wp-content/uploads/2023/02/settings.png"},
@@ -31,6 +32,7 @@ const BookingService = () => {
     })
 
     const [resultStaus, setResultStatus] = useState('')
+
 
     const handleOnChangeInput = (event) => {
         const {name, value} = event.target
@@ -67,12 +69,38 @@ const BookingService = () => {
             {value => {        
                 const {addBookingItem} = value
 
-                const handleBookService = event => {
-                    event.preventDefault()
+
+                const handleBookService = async event => {
+                    event.preventDefault()    
 
                     if (userData.userSelectedServices.length > 0){
                         setResultStatus(true)
                         addBookingItem(userData)
+
+                        // Email Send to User    
+                        const templateParams = {
+                            email: userData.email,
+                            name : userData.name,
+                            bookigDate : userData.date,
+                            phoneNum : userData.phoneNumber,
+                            bikeNum : userData.vehicleNumber,
+                            services : `${userData.userSelectedServices}`
+                        };
+
+                        await emailjs.send("service_vmpxhul","template_d4ho3rn", templateParams, {
+                            publicKey: "CNCuqPLXOlIXzzEdw",
+                        }).then(
+                            () => {
+                            console.log('BOOKING SUCCESS!');
+                            },
+                            (error) => {
+                            console.log('FAILED...', error.text);
+                            // setResultStatus("Invalid Email")
+                            },
+                        );
+                        console.log(templateParams)
+
+
                         setUserdata({
                             name : '',
                             email : '',
@@ -81,10 +109,8 @@ const BookingService = () => {
                             vehicleNumber: '',
                             userSelectedServices : []
                         })
-
-
                         
-                        window.location = "/";
+                        window.location.reload();
                     }    
                     else{
                         setResultStatus(false)
@@ -180,6 +206,7 @@ const BookingService = () => {
                         <div className='err-con'>
                             {resultStaus === true && <h4 className='booking-success-msg'>Booking Successfully</h4>}
                             {resultStaus === false && <h4 className='booking-err-msg'>*Please choose your services</h4>}
+                            {/* {resultStaus === "Invalid Email" && <h4 className='booking-err-msg'>Invalid Email - *Please fill correct email</h4>} */}
                         </div>
                         <div className='button-con'>
                             <button type='submit'>Book Service</button>
