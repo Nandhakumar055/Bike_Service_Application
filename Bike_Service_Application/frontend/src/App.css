@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #efc6ff;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(to top, purple, #b278f5);
+  border-radius: 5px;
+}
