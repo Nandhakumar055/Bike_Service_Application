@@ -25,9 +25,9 @@ const Signup = () => {
 		e.preventDefault();
 
 		try {
-			// const url = "https://bike-service-application-backend.onrender.com/api/users";
+			const url = "https://bike-service-application-backend.onrender.com/api/signup";
 
-			const url = "http://localhost:5000/api/signup"
+			// const url = "http://localhost:5000/api/signup"
 
 			setError('Loading...')
 			
