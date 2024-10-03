@@ -18,3 +18,7 @@
   background-image: linear-gradient(to top, purple, #b278f5);
   border-radius: 5px;
 }
+
+html {
+  scroll-behavior: smooth;
+}
